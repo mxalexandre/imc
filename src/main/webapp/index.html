@@ -1,0 +1,150 @@
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+  <style>
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .input-field input[type=text]:focus + label,
+  .input-field input[type=altura]:focus + label,
+  .input-field input[type=peso]:focus + label {
+    color: #e91e63;
+  }
+
+  .input-field input[type=text]:focus,
+  .input-field input[type=altura]:focus,
+  .input-field input[type=peso]:focus {
+    border-bottom: 2px solid #e91e63;
+    box-shadow: none;
+  }
+  h5 {color: #26a69a;}
+  </style>
+</head>
+
+<body>
+  <div class="section"></div>
+  <main>
+    <center>
+      <img class="responsive-img" style="width: 500px;" src="img/Gif-Pagina.gif" />
+      <div class="section"></div>
+
+      <h5 class="text">Calculo de IMC</h5>
+      <div class="section"></div>
+
+      <div class="container">
+        <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+
+          <form id= "formulario" class="col s12" method="post">
+            <div class='row'>
+              <div class='col s12'>
+              </div>
+            </div>
+
+            <div class='row'>
+              <div class='input-field col s12'>
+                <input class='validate' type='number' name='altura' id='altura' required />
+                <label for='altura'>Digite sua altura (cm)</label>
+              </div>
+            </div>
+
+            <div class='row'>
+              <div class='input-field col s12'>
+                <input class='validate' type='number' name='peso' id='peso' value=''/>
+                <label for='peso'>Digite seu peso (kg)</label>
+              </div>
+              <div class="input-field col s12">
+                <p>
+                  <input id="male" type="radio" name="gender" value="male">
+                  <label for="male">Homem</label>
+                </p>
+                <p>
+                  <input id="female" type="radio" name="gender" value="female">
+                  <label for="female">Mulher</label>
+                </p>
+              </div>
+
+            </div>
+
+            <br />
+            <center>
+              <div class='row'>
+                <button type="submit" data-target="modal1" class='col s12 btn btn-large waves-effect waves-light' onclick="calcularIMC();">Calcular</button>
+                <div class="row section">
+                </div>
+              </center>
+            </form>
+          </div>
+        </div>
+      </center>
+
+      <!-- Modal Structure -->
+      <div id="modal1" class="modal">
+        <div class="modal-content">
+          <h4>Resultado</h4>
+          <p id="imc"></p>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+      </div>
+    </div>
+    <div class="section"></div>
+    <div class="section"></div>
+  </main>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+  <script>
+  $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal();
+  });
+  </script>
+  <script>
+  function calcularIMC() {
+    var peso = $('#peso').prop('value');
+    var altura = $('#altura').prop('value');
+    altura = (altura / 100);
+    var imc = peso / (altura * altura);
+    imc = parseFloat(imc.toFixed(2));
+    if (imc > 10 && imc <= 20){
+      var result = "Abaixo do peso";
+    }else if (imc > 20 && imc <= 25){
+      var result = "Peso ideal";
+
+    }else if (imc > 25 && imc <= 30){
+      var result = "Sobrepeso";
+
+    }else if (imc > 30 && imc <= 35){
+      var result = "Obesidade Moderada";
+
+    }else if (imc > 35 && imc <= 40){
+      var result = "Obesidade Severa";
+
+    }else if (imc > 40 && imc <= 50){
+      var result = "Obesidade Mórbida";
+
+    }else if (imc > 50 && imc <= 100){
+      var result = "Super Obesidade";
+    }
+    else {
+      var result = "Preencha os campos corretamente!";
+    }
+    document.getElementById("imc").innerHTML = result.concat("<br>IMC: ").concat(imc); 
+  }
+  </script>
+</body>
+
+</html>
